@@ -1,0 +1,15 @@
+<%= render 'shared/navbar' %>
+<%= render 'shared/jumbo' %>
+<section class="container mt-5">
+    <%# loop through posts and get them %>
+    <% @post.each do |post| %>
+       <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><%= post.title %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= post.updated_at %></h6>
+                <p class="card-text"><%= post.content %></p>
+                <%= link_to 'View post', post %>
+            </div>
+        </div>
+    <% end %>
+</section>
