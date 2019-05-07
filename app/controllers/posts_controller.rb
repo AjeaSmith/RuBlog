@@ -3,7 +3,7 @@
 class PostsController < ApplicationController
   # gets all posts
   def index
-    @post = Post.all.order('created_at DESC')
+    @post = Post.all
   end
 
   # initialize post into @post renders form
@@ -32,8 +32,10 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes(post_params)
-      redirect_to action: 'show', id: @post
+      flash[:success] = 'Post was successfully updated'
+      redirect_to @post
     else
+      flash[:error] = 'Something went wrong'
       render 'edit'
     end
   end
