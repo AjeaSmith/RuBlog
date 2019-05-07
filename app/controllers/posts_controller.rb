@@ -3,7 +3,7 @@
 class PostsController < ApplicationController
   # gets all posts
   def index
-    @post = Post.all
+    @post = Post.all.order('created_at DESC')
   end
 
   # initialize post into @post renders form
@@ -19,8 +19,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to @post
+      flash[:success] = 'Post was successfully saved!'
+      redirect_to action: 'show'
     else
+      flash[:danger] = 'Error creating post'
       render 'new'
     end
   end
@@ -29,13 +31,24 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.destroy
+      flash[:success] = 'Post was successfully deleted.'
+      redirect_to posts_url
+    else
+      flash[:danger] = 'Could not delete post'
+      redirect_to posts_url
+    end
+  end
+
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes(post_params)
-      flash[:success] = 'Post was successfully updated'
+      flash[:info] = 'Post was successfully updated'
       redirect_to @post
     else
-      flash[:error] = 'Something went wrong'
+      flash[:danger] = 'Error updating post'
       render 'edit'
     end
   end
