@@ -20,7 +20,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     if @post.save
       flash[:success] = 'Post was successfully saved!'
-      redirect_to action: 'show'
+      redirect_to @post
     else
       flash[:danger] = 'Error creating post'
       render 'new'
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.destroy
       flash[:success] = 'Post was successfully deleted.'
-      redirect_to posts_url
+      redirect_to @post
     else
       flash[:danger] = 'Could not delete post'
       redirect_to post_url

@@ -1,0 +1,12 @@
+<div class="container mt-5">
+    <h3 class="mb-3">Leave a reply</h3>
+    <%= simple_form_for [@post, @post.comments.build] do |f| %>
+        <div class="form-group">
+            <%= f.text_field :name, class:'form-control', placeholder: 'Name' %>
+        </div>
+        <div class="form-group">
+            <%= f.text_area :acomment, class:'form-control', placeholder: 'Add Comment' %>
+        </div>
+        <%= f.button :submit, class: 'btn btn-primary'%>
+    <% end %>
+</div>
